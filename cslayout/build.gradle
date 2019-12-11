@@ -1,7 +1,9 @@
-apply plugin: 'com.android.application'
-
+if (isLibrary.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -9,16 +11,19 @@ android {
     buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId APPLICATION_ID
+        if (!isLibrary.toBoolean()) {
+            applicationId "com.chengm.cslayout"
+        }
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE
         versionName VERSION_NAME
     }
+
     buildTypes {
         release {
             minifyEnabled MINIFY
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -26,10 +31,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-//    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
-    implementation roots.recyclerview
-    implementation roots.appcompatV7
-    implementation roots.constraint
-    implementation project(path: ':cslayout')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
