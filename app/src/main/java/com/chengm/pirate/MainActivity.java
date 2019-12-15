@@ -1,23 +1,20 @@
 package com.chengm.pirate;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
+import com.chengm.commonlib.http.user.User;
+import com.chengm.commonlib.http.user.UserRequest;
+import com.chengm.commonlib.utils.MD5Util;
+import com.chengm.http.LoadingObserver;
+import com.chengm.http.utils.L;
+import com.trello.rxlifecycle2.components.RxActivity;
 
 /**
  * author : ChenWJ
  * date : 2019/12/7 10:43
  * description :
  */
-public class MainActivity extends Activity {
-
-    private RecyclerView mRvBanner;
+public class MainActivity extends RxActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,37 +25,20 @@ public class MainActivity extends Activity {
     }
 
     private void initView() {
-        mRvBanner = findViewById(R.id.recycler_view);
-        BannerAdapter adapter = new BannerAdapter(this, getBannerData());
-        mRvBanner.setAdapter(adapter);
+        // 网络测试
+        int identityType = 1;
+        String identifier = "18179739967";
+        String pwd = MD5Util.MD5EncodeUtf8("999999");
+        UserRequest.getInstance(this).authLogin(identityType, identifier, pwd, new LoadingObserver<User>(this) {
+            @Override
+            protected void onSuccess(User result) {
+                L.d("XXX", result.toString());
+            }
 
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mRvBanner.setLayoutManager(manager);
-
-        PagerSnapHelper bannerPageSnapHelper = new PagerSnapHelper();
-        bannerPageSnapHelper.attachToRecyclerView(mRvBanner);
-    }
-
-    // 数据
-    private List<Banner> getBannerData() {
-        List<Banner> datas = new ArrayList<>();
-
-        Banner banner = new Banner();
-        banner.setResId(R.mipmap.image01);
-        datas.add(banner);
-
-        banner = new Banner();
-        banner.setResId(R.mipmap.image02);
-        datas.add(banner);
-
-        banner = new Banner();
-        banner.setResId(R.mipmap.image03);
-        datas.add(banner);
-
-        banner = new Banner();
-        banner.setResId(R.mipmap.image04);
-        datas.add(banner);
-
-        return datas;
+            @Override
+            protected void onFailure(Throwable e, String errorMsg) {
+                L.d("XXX", errorMsg);
+            }
+        });
     }
 }

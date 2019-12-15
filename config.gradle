@@ -25,13 +25,15 @@ ext {
     //  compile "com.android.support:appcompat-v7:${APPCOMPAT_VERSION}"
     APPCOMPAT_VERSION = '29+'
     CONSTRAINT_VERSION = '1.1.3'
+    APPCOMPATX_VERSION = '1.1.0'
 
     //公共的(系统的)
     roots = [
             // 项目基本的(每个项目需要的)
             "appcompatV7"               :   "com.android.support:appcompat-v7:${APPCOMPAT_VERSION}",
             "constraint"                :   "com.android.support.constraint:constraint-layout:${CONSTRAINT_VERSION}",
-            "recyclerview"              :   "com.android.support:recyclerview-v7:${APPCOMPAT_VERSION}"
+            "recyclerview"              :   "com.android.support:recyclerview-v7:${APPCOMPAT_VERSION}",
+            "androidx"                  :   "androidx.appcompat:appcompat:${APPCOMPATX_VERSION}"
 //            "junit"                     :   "junit:junit:${junitVersion}",
 //            "runner"                    :   "com.android.support.test:runner:${runnerVersion}",
 //            "espresso"                  :   "com.android.support.test.espresso:espresso-core:${espressoVersion}",

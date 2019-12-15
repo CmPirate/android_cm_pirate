@@ -1,1 +1,1 @@
-include ':app', ':cslayout'
+include ':app', ':commonlib', ':http', ':widget'

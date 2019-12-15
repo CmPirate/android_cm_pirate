@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="check_net">请检查网络连接</string>
+    <string name="loading">加载中&#8230;</string>
+
+</resources>
